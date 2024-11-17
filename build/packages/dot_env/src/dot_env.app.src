@@ -1,0 +1,11 @@
+{application, dot_env, [
+    {vsn, "1.2.0"},
+    {applications, [gleam_stdlib,
+                    gleeunit,
+                    simplifile]},
+    {description, "Load and use environment variables from files"},
+    {modules, [dot_env,
+               dot_env@env,
+               dot_env@internal@parser]},
+    {registered, []}
+]}.

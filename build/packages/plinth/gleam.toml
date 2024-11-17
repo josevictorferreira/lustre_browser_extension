@@ -1,0 +1,21 @@
+name = "plinth"
+version = "0.5.1"
+description = "Bindings to Node.js and browser platform APIs"
+target = "javascript"
+
+# Fill out these fields if you intend to generate HTML documentation or publish
+# your project to the Hex package manager.
+#
+licences = ["Apache-2.0"]
+repository = { type = "github", user = "Crowdhailer", repo = "plinth" }
+gleam = ">= 0.32.0"
+# links = [{ title = "Website", href = "https://gleam.run" }]
+
+[dependencies]
+gleam_stdlib = "~> 0.29 or ~> 1.0"
+gleam_javascript = "~> 0.4"
+gleam_json = ">= 1.0.0 and < 3.0.0"
+conversation = ">= 1.4.3 and < 2.0.0"
+
+[dev-dependencies]
+gleeunit = "~> 1.0"

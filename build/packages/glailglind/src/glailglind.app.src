@@ -1,0 +1,16 @@
+{application, glailglind, [
+    {vsn, "1.1.3"},
+    {applications, [gleam_erlang,
+                    gleam_http,
+                    gleam_httpc,
+                    gleam_stdlib,
+                    gleeunit,
+                    shellout,
+                    simplifile,
+                    tom]},
+    {description, "Gleam modules and functions for installing and invoking TailwindCSS"},
+    {modules, [tailwind,
+               tailwind@install,
+               tailwind@run]},
+    {registered, []}
+]}.

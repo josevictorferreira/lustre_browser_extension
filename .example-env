@@ -1,0 +1,3 @@
+EXTENSION=chrome
+GLEAM_ENV=development
+PORT=1234

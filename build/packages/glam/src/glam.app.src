@@ -1,0 +1,13 @@
+{application, glam, [
+    {vsn, "2.0.1"},
+    {applications, [birdie,
+                    gleam_stdlib,
+                    gleeunit]},
+    {description, "A package to help you easily pretty print structured data"},
+    {modules, [examples@error_messages,
+               examples@gleam_lists,
+               examples@json,
+               examples@todo_lists,
+               glam@doc]},
+    {registered, []}
+]}.
