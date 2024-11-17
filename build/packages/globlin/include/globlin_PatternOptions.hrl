@@ -1,1 +1,0 @@
--record(pattern_options, {ignore_case :: boolean(), match_dotfiles :: boolean()}).

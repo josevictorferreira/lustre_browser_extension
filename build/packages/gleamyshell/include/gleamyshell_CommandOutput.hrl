@@ -1,1 +1,0 @@
--record(command_output, {exit_code :: integer(), output :: binary()}).

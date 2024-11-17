@@ -1,8 +1,0 @@
-{application, globlin, [
-    {vsn, "2.0.2"},
-    {applications, [gleam_stdlib,
-                    gleeunit]},
-    {description, "file globbing for Gleam"},
-    {modules, [globlin]},
-    {registered, []}
-]}.

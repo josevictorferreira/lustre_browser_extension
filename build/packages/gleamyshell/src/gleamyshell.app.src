@@ -1,8 +1,0 @@
-{application, gleamyshell, [
-    {vsn, "2.0.2"},
-    {applications, [gleam_stdlib,
-                    gleeunit]},
-    {description, "A cross-platform Gleam library for executing shell commands."},
-    {modules, [gleamyshell]},
-    {registered, []}
-]}.

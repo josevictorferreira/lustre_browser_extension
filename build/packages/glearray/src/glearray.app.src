@@ -1,8 +1,0 @@
-{application, glearray, [
-    {vsn, "1.0.0"},
-    {applications, [gleam_stdlib,
-                    gleeunit]},
-    {description, "Immutable arrays for Gleam"},
-    {modules, [glearray]},
-    {registered, []}
-]}.
