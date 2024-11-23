@@ -32,7 +32,7 @@ fn view(model) {
   let count = int.to_string(model)
 
   div([], [
-    div([], [h1([], [text(project_config.name() <> " Options")])]),
+    div([], [h1([], [text(project_config.name() <> " Side Panel")])]),
     button([on_click(Incr)], [text(" + ")]),
     p([], [text(count)]),
     button([on_click(Decr)], [text(" - ")]),

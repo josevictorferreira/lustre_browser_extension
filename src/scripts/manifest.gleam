@@ -4,12 +4,15 @@ import gleam/json.{
   type Json, array, bool, int, object, preprocessed_array, string,
 }
 import gleam/list
+import lib/file_utils
 import lib/project_config
 import simplifile
 
 pub fn main() {
   io.debug("Generating manifest.json")
-  let filepath = "./dist/manifest.json"
+  let extension_dir = "./extension/"
+  file_utils.ensure_dir(extension_dir)
+  let filepath = extension_dir <> "manifest.json"
   let assert Ok(_) =
     get_manifest_json_string()
     |> simplifile.write(to: filepath)

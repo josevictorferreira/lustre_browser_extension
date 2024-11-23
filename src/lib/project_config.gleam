@@ -5,6 +5,8 @@ import gleam/io
 import simplifile
 import tom.{type Toml}
 
+pub const views: List(String) = ["options", "popup", "sidepanel"]
+
 pub fn name() -> String {
   parsed_config()
   |> get_string_property(["name"])
