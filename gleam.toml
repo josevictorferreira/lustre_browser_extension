@@ -32,8 +32,8 @@ lucide_lustre = ">= 2.0.0 and < 3.0.0"
 version = "3.4.1" # optional
 args = [
     "--config=tailwind.config.js",
-    "--input=./src/css/app.css",
-    "--output=./priv/css/app.css"
+    "--input=./src/styles/app.css",
+    "--output=./extension/priv/styles/app.css"
 ]
 
 [lucide_lustre]
