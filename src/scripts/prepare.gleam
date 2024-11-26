@@ -1,4 +1,3 @@
-import gleam/bool
 import gleam/int
 import gleam/io
 import gleam/list
@@ -10,7 +9,10 @@ import simplifile
 
 pub fn main() {
   manifest.main()
-  stub_index_html(project_config.views)
+  case project_config.is_dev() {
+    True -> stub_index_html(project_config.views)
+    False -> io.println("Skipping stubbing index.html")
+  }
 }
 
 pub fn stub_index_html(views: List(String)) {
@@ -27,8 +29,8 @@ pub fn stub_index_html(views: List(String)) {
     let new_file_content =
       file_content
       |> string.replace(
-        each: "\"./main.ts\"",
-        with: "\"http://localhost:" <> port <> "/" <> view <> "/main.ts\"",
+        each: "\"./main.js\"",
+        with: "\"http://localhost:" <> port <> "/" <> view <> "/main.js\"",
       )
       |> string.replace(
         each: "<div id=\"app\"></div>",

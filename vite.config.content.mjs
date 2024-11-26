@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
-import { sharedConfig, isDev, r, name } from './vite.config.mjs'
+import { sharedConfig } from './vite.config.mjs'
+import { isDev, r, name } from './scripts/utils.js'
 
 export default defineConfig({
   ...sharedConfig,

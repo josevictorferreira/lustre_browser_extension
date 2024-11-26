@@ -1,27 +1,33 @@
 import { defineConfig } from 'vite'
 import gleam from 'vite-gleam'
-import { name, get_port, is_dev } from './src/lib/project_config.gleam'
-
-export const port = get_port();
-
-export const isDev = is_dev();
-
-export const name = name();
-
-export const r = (...args) => resolve(__dirname, "..", ...args);
+import { dirname, relative } from "node:path";
+import { r, name, isDev, port } from './scripts/utils.js';
 
 export const sharedConfig = {
-  root: r('src'),
+  root: r("src"),
   resolve: {
     alias: {
-      '~/': `${r('src')}/`,
+      "~/": `${r("src")}/`,
     },
   },
   define: {
     __DEV__: isDev,
     __NAME__: JSON.stringify(name),
   },
-  plugins: [gleam()],
+  plugins: [
+    gleam(),
+    {
+      name: "assets-rewrite",
+      enforce: "post",
+      apply: "build",
+      transformIndexHtml(html, { path }) {
+        return html.replace(
+          /"\/assets\//g,
+          `"${relative(dirname(path), "/assets")}/`,
+        );
+      },
+    },
+  ],
 }
 
 export default defineConfig(({ command }) => ({
