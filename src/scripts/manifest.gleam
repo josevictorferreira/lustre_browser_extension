@@ -71,9 +71,7 @@ fn get_background() -> Json {
         #("type", string("module")),
       ])
     False ->
-      object([
-        #("service_worker", array(["./dist/background/index.mjs"], of: string)),
-      ])
+      object([#("service_worker", string("./dist/background/index.mjs"))])
   }
 }
 
