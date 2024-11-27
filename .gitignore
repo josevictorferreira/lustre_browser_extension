@@ -29,4 +29,17 @@ dist-ssr
 build
 build/*
 
-extension
+.vite-ssg-dist
+.vite-ssg-temp
+*.crx
+*.local
+*.log
+*.pem
+*.xpi
+*.zip
+.vite-ssg-dist
+.vite-ssg-temp
+.idea/
+.DS_Store
+
+extension/manifest.json

@@ -92,7 +92,7 @@ fn get_content_scripts() -> Json {
   preprocessed_array([
     object([
       #("matches", array(["<all_urls>"], of: string)),
-      #("js", array(["./dist/content_scripts/index.mjs"], of: string)),
+      #("js", array(["./dist/content_scripts/index.global.js"], of: string)),
     ]),
   ])
 }
