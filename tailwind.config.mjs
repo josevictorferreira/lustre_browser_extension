@@ -1,10 +1,7 @@
-let plugin = require('tailwindcss/plugin')
-
 export default {
-  content: ['./src/**/*.{html,gleam}'],
+  content: ['./src/**/*.{js,html,gleam}'],
   theme: {
     extend: {},
   },
   plugins: [],
 }
-

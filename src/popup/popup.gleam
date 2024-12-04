@@ -1,9 +1,11 @@
+import components/shared_subtitle
 import gleam/int
 import lib/project_config
 import lustre
-import lustre/element.{text}
-import lustre/element/html.{button, div, h1, p}
-import lustre/event.{on_click}
+import lustre/attribute
+import lustre/element
+import lustre/element/html
+import lustre/event
 
 pub fn main() {
   let app = lustre.simple(init, update, view)
@@ -29,12 +31,19 @@ fn update(model, msg) {
 }
 
 fn view(model) {
-  let count = int.to_string(model)
+  html.main([main_container_classes()], [
+    html.div([], [html.text("Popup")]),
+    shared_subtitle.view("Popup"),
+    html.button([attribute.class("btn mt-2")], [html.text("Open Options")]),
+  ])
+}
 
-  div([], [
-    div([], [h1([], [text(project_config.name() <> " Popup")])]),
-    button([on_click(Incr)], [text(" + ")]),
-    p([], [text(count)]),
-    button([on_click(Decr)], [text(" - ")]),
+fn main_container_classes() {
+  attribute.classes([
+    #("w-300px", True),
+    #("px-4", True),
+    #("py-5", True),
+    #("text-center", True),
+    #("text-gray-700", True),
   ])
 }
