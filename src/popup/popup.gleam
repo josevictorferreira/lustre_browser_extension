@@ -1,9 +1,6 @@
 import components/shared_subtitle
-import gleam/int
-import lib/project_config
 import lustre
 import lustre/attribute
-import lustre/element
 import lustre/element/html
 import lustre/event
 
@@ -15,35 +12,41 @@ pub fn main() {
 }
 
 fn init(_flags) {
-  0
+  "Popup"
 }
 
 type Msg {
-  Incr
-  Decr
+  UserClickedOpenOptionPage
 }
 
-fn update(model, msg) {
+fn update(_model, msg) {
   case msg {
-    Incr -> model + 1
-    Decr -> model - 1
+    UserClickedOpenOptionPage -> open_options_page()
   }
 }
 
 fn view(model) {
   html.main([main_container_classes()], [
-    html.div([], [html.text("Popup")]),
-    shared_subtitle.view("Popup"),
-    html.button([attribute.class("btn mt-2")], [html.text("Open Options")]),
+    html.div([], [html.text(model)]),
+    shared_subtitle.view(model),
+    html.button(
+      [attribute.class("btn mt-2"), event.on_click(UserClickedOpenOptionPage)],
+      [html.text("Open Options")],
+    ),
   ])
 }
 
 fn main_container_classes() {
-  attribute.classes([
-    #("w-300px", True),
-    #("px-4", True),
-    #("py-5", True),
-    #("text-center", True),
-    #("text-gray-700", True),
-  ])
+  attribute.class(
+    "
+    w-300px
+    px-4
+    py-5
+    text-center
+    text-gray-700
+  ",
+  )
 }
+
+@external(javascript, "../lib/ffi.mjs", "openOptionsPage")
+fn open_options_page() -> a
