@@ -1,5 +1,7 @@
 import components/logo
 import components/shared_subtitle
+import gleam/result
+import lib/storage
 import lustre
 import lustre/attribute
 import lustre/element/html
@@ -12,29 +14,39 @@ pub fn main() {
   Nil
 }
 
+pub type PopupDefaults {
+  PopupDefaults(page_name: String, shared_input: String)
+}
+
 fn init(_flags) {
-  "Popup"
+  let shared_input = storage.get_item("shared_input") |> result.unwrap("")
+
+  PopupDefaults(page_name: "Popup", shared_input: shared_input)
 }
 
 type Msg {
   UserClickedOpenOptionPage
 }
 
-fn update(_model, msg) {
+fn update(model, msg) {
   case msg {
-    UserClickedOpenOptionPage -> open_options_page()
+    UserClickedOpenOptionPage -> {
+      open_options_page()
+      model
+    }
   }
 }
 
-fn view(model) {
+fn view(model: PopupDefaults) {
   html.main([main_container_classes()], [
-    html.div([], [html.text(model)]),
+    html.div([], [html.text(model.page_name)]),
     logo.view(),
-    shared_subtitle.view(model),
+    shared_subtitle.view(model.page_name),
     html.button(
       [attribute.class("btn mt-2"), event.on_click(UserClickedOpenOptionPage)],
       [html.text("Open Options")],
     ),
+    shared_input_view(model.shared_input),
   ])
 }
 
@@ -48,6 +60,14 @@ fn main_container_classes() {
     text-gray-700
   ",
   )
+}
+
+fn shared_input_view(shared_input) {
+  html.div([attribute.class("mt-2")], [
+    html.span([attribute.class("opacity-50")], [
+      html.text("Shared input: " <> shared_input),
+    ]),
+  ])
 }
 
 @external(javascript, "../lib/ffi.mjs", "openOptionsPage")

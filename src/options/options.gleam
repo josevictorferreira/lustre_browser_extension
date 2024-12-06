@@ -1,5 +1,6 @@
 import components/logo
 import components/shared_subtitle
+import gleam/result
 import lib/storage
 import lustre
 import lustre/attribute
@@ -18,7 +19,9 @@ pub type OptionPageDefaults {
 }
 
 fn init(_flags) {
-  OptionPageDefaults(page_name: "Options", shared_input: "")
+  let shared_input = storage.get_item("shared_input") |> result.unwrap("")
+
+  OptionPageDefaults(page_name: "Options", shared_input: shared_input)
 }
 
 type Msg {
