@@ -4,6 +4,7 @@ import { dirname, relative } from "node:path";
 import { r, name, isDev, port } from './scripts/utils.js';
 import tailwindcss from 'tailwindcss';
 import autoprefixer from 'autoprefixer';
+import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 export const sharedConfig = {
   root: r("src"),
@@ -29,6 +30,14 @@ export const sharedConfig = {
         );
       },
     },
+    viteStaticCopy({
+      targets: [
+        {
+          src: r('src/assets/*'),
+          dest: r('extension/dist/assets')
+        }
+      ]
+    })
   ],
 }
 

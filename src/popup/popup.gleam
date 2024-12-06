@@ -1,3 +1,4 @@
+import components/logo
 import components/shared_subtitle
 import lustre
 import lustre/attribute
@@ -28,6 +29,7 @@ fn update(_model, msg) {
 fn view(model) {
   html.main([main_container_classes()], [
     html.div([], [html.text(model)]),
+    logo.view(),
     shared_subtitle.view(model),
     html.button(
       [attribute.class("btn mt-2"), event.on_click(UserClickedOpenOptionPage)],
