@@ -48,7 +48,9 @@ fn view(model: OptionPageDefaults) {
 
 fn shared_input(shared_input) {
   html.input([
-    attribute.class("border border-gray-400 rounded px-2 py-1 mt-2"),
+    attribute.class(
+      "border border-gray-400 rounded px-2 py-1 mt-2 text-gray-800",
+    ),
     attribute.value(shared_input),
     event.on_input(fn(value: String) { UserTypedInput(value) }),
   ])
@@ -57,7 +59,7 @@ fn shared_input(shared_input) {
 fn main_classes() {
   attribute.class(
     "
-    px-4 py-10 text-center text-gray-700 dark:text-gray-200
+    px-4 py-10 text-center text-gray-800 dark:text-gray-200 dark:bg-gray-900
   ",
   )
 }

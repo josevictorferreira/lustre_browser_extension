@@ -57,7 +57,9 @@ fn main_container_classes() {
     px-4
     py-5
     text-center
-    text-gray-700
+    text-gray-800
+    dark:text-gray-200
+    dark:bg-gray-900
   ",
   )
 }
