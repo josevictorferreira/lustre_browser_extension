@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "pnpm run clear && cross-env NODE_ENV=development GLEAM_ENV=development run-p dev:*",
-    "dev-firefox": "pnpm run clear && cross-env NODE_ENV=development EXTENSION=firefox run-p dev:*",
+    "dev-firefox": "pnpm run clear && cross-env NODE_ENV=development GLEAM_ENV=development EXTENSION=firefox run-p dev:*",
     "dev:prepare": "gleam run -m scripts/prepare",
     "dev:background": "pnpm run build:background -- --mode development",
     "dev:web": "vite",

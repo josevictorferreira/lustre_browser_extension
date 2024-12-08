@@ -2,6 +2,7 @@ import components/logo
 import components/shared_subtitle
 import gleam/result
 import lib/storage
+import lib/utils
 import lustre
 import lustre/attribute
 import lustre/element/html
@@ -31,7 +32,7 @@ type Msg {
 fn update(model, msg) {
   case msg {
     UserClickedOpenOptionPage -> {
-      open_options_page()
+      utils.open_options_page()
       model
     }
   }
@@ -72,5 +73,5 @@ fn shared_input_view(shared_input) {
   ])
 }
 
-@external(javascript, "../lib/ffi.mjs", "openOptionsPage")
+@external(javascript, "../ffi.mjs", "openOptionsPage")
 fn open_options_page() -> a
