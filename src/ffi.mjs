@@ -13,3 +13,7 @@ export function onMessage(address, callback) {
     }
   })
 }
+
+export function onInstalled(callback) {
+  chrome.runtime.onInstalled.addListener(callback)
+}

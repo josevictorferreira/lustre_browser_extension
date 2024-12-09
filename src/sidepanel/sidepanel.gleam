@@ -1,8 +1,8 @@
 import components/logo
 import components/shared_subtitle
 import gleam/result
+import lib/extension_utils
 import lib/storage
-import lib/utils
 import lustre
 import lustre/attribute
 import lustre/element/html
@@ -32,7 +32,7 @@ type Msg {
 fn update(model, msg) {
   case msg {
     UserClickedOpenOptionPage -> {
-      utils.open_options_page()
+      extension_utils.open_options_page()
       model
     }
   }
