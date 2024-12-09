@@ -1,13 +1,15 @@
+const browser = chrome || browser;
+
 export function openOptionsPage() {
-  chrome.runtime.openOptionsPage()
+  browser.runtime.openOptionsPage()
 }
 
 export function postMessage(message, to) {
-  chrome.runtime.sendMessage({ to, message })
+  browser.runtime.sendMessage({ to, message })
 }
 
 export function onMessage(address, callback) {
-  chrome.runtime.onMessage.addListener((message) => {
+  browser.runtime.onMessage.addListener((message) => {
     if (message.to === address) {
       callback(message.message)
     }
@@ -15,5 +17,5 @@ export function onMessage(address, callback) {
 }
 
 export function onInstalled(callback) {
-  chrome.runtime.onInstalled.addListener(callback)
+  browser.runtime.onInstalled.addListener(callback)
 }

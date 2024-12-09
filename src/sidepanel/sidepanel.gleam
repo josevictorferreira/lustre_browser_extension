@@ -72,6 +72,3 @@ fn shared_input_view(shared_input) {
     ]),
   ])
 }
-
-@external(javascript, "../ffi.mjs", "openOptionsPage")
-fn open_options_page() -> a

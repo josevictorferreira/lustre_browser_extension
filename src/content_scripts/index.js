@@ -3,13 +3,13 @@ import "../styles/app.css"
 
 (() => {
   const browser = chrome || browser;
-  console.log("Lustre web extension content script loaded");
+  console.log(`${__NAME__} content script loaded`);
 
   const container = document.createElement("div");
   container.id = __NAME__;
 
   const root = document.createElement("div");
-  const rootId = `${__NAME__}-root-12345`;
+  const rootId = `${__NAME__}-root`;
   root.id = rootId;
 
   const styleUrl = browser.runtime.getURL("dist/content_scripts/style.css")

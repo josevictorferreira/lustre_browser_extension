@@ -1,4 +1,4 @@
-import components/logo
+import components/lucide_icons
 import components/shared_subtitle
 import gleam/io
 import lustre
@@ -49,7 +49,7 @@ fn view(model: ContentScriptDefaults) {
       shared_subtitle.view(model.page_name),
     ]),
     html.button([button_classes(), event.on_click(UserToggledVisibility)], [
-      html.text("Toggle Visibility"),
+      lucide_icons.cable([]),
     ]),
   ])
 }
@@ -75,6 +75,6 @@ fn top_container_classes() {
 
 fn button_classes() {
   attribute.class(
-    "flex w-10 h-10 rounded-full shadow cursor-pointer border-none bg-teal-600 hover:bg-teal-700",
+    "flex w-10 h-10 rounded-full shadow cursor-pointer text-gray-200 border-none items-center justify-center bg-teal-600 hover:bg-teal-700",
   )
 }
