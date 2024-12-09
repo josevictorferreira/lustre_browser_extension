@@ -51,14 +51,14 @@ pub fn get_manifest_json() -> Json {
 
 fn get_action_object() -> Json {
   object([
-    #("default_icon", string("./assets/icons/icon_128.png")),
-    #("default_popup", string("./dist/popup/index.html")),
+    #("default_icon", string("assets/icons/icon_128.png")),
+    #("default_popup", string("dist/popup/index.html")),
   ])
 }
 
 fn get_options_ui() -> Json {
   object([
-    #("page", string("./dist/options/index.html")),
+    #("page", string("dist/options/index.html")),
     #("open_in_tab", bool(True)),
   ])
 }
@@ -67,20 +67,19 @@ fn get_background() -> Json {
   case project_config.is_firefox() {
     True ->
       object([
-        #("scripts", array(["./dist/background/index.mjs"], of: string)),
+        #("scripts", array(["dist/background/index.mjs"], of: string)),
         #("type", string("module")),
       ])
-    False ->
-      object([#("service_worker", string("./dist/background/index.mjs"))])
+    False -> object([#("service_worker", string("dist/background/index.mjs"))])
   }
 }
 
 fn get_icons() -> Json {
   object([
-    #("16", string("./assets/icons/icon_16.png")),
-    #("32", string("./assets/icons/icon_32.png")),
-    #("48", string("./assets/icons/icon_48.png")),
-    #("128", string("./assets/icons/icon_128.png")),
+    #("16", string("assets/icons/icon_16.png")),
+    #("32", string("assets/icons/icon_32.png")),
+    #("48", string("assets/icons/icon_48.png")),
+    #("128", string("assets/icons/icon_128.png")),
   ])
 }
 
@@ -92,7 +91,7 @@ fn get_content_scripts() -> Json {
   preprocessed_array([
     object([
       #("matches", array(["<all_urls>"], of: string)),
-      #("js", array(["./dist/content_scripts/index.global.js"], of: string)),
+      #("js", array(["dist/content_scripts/index.global.js"], of: string)),
     ]),
   ])
 }
@@ -100,7 +99,7 @@ fn get_content_scripts() -> Json {
 fn get_web_accessible_resources() -> Json {
   preprocessed_array([
     object([
-      #("resources", array(["./dist/content_scripts/style.css"], of: string)),
+      #("resources", array(["dist/content_scripts/style.css"], of: string)),
       #("matches", array(["<all_urls>"], of: string)),
     ]),
   ])
@@ -125,8 +124,8 @@ fn get_firefox_specific_options() {
     #(
       "sidebar_action",
       object([
-        #("default_panel", string("./dist/sidepanel/index.html")),
-        #("default_icon", string("./assets/icons/icon_128.png")),
+        #("default_panel", string("dist/sidepanel/index.html")),
+        #("default_icon", string("assets/icons/icon_128.png")),
       ]),
     ),
   ]
@@ -136,7 +135,7 @@ fn get_chrome_specific_options() {
   [
     #(
       "side_panel",
-      object([#("default_path", string("./dist/sidepanel/index.html"))]),
+      object([#("default_path", string("dist/sidepanel/index.html"))]),
     ),
   ]
 }

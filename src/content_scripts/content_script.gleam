@@ -1,5 +1,6 @@
 import components/logo
 import components/shared_subtitle
+import gleam/io
 import lustre
 import lustre/attribute
 import lustre/element/html
@@ -7,9 +8,18 @@ import lustre/event
 
 pub fn main(element_id: String) {
   let app = lustre.simple(init, update, view)
-  let assert Ok(_) = lustre.start(app, element_id, Nil)
 
-  Nil
+  case lustre.start(app, element_id, Nil) {
+    Ok(_) -> {
+      io.debug("Lustre content script started successfully")
+      Nil
+    }
+    Error(e) -> {
+      io.debug("Error starting Lustre content script app:")
+      io.debug(e)
+      Nil
+    }
+  }
 }
 
 pub type ContentScriptDefaults {
@@ -39,7 +49,7 @@ fn view(model: ContentScriptDefaults) {
       shared_subtitle.view(model.page_name),
     ]),
     html.button([button_classes(), event.on_click(UserToggledVisibility)], [
-      logo.view(),
+      html.text("Toggle Visibility"),
     ]),
   ])
 }
