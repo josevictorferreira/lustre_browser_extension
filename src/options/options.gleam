@@ -40,7 +40,7 @@ fn update(model, msg) {
 fn view(model: OptionPageDefaults) {
   html.main([main_classes()], [
     html.div([], [html.text(model.page_name)]),
-    logo.view([]),
+    logo.view([attribute.class("w-12 h-12 mx-auto")]),
     shared_subtitle.view(model.page_name),
     shared_input(model.shared_input),
   ])

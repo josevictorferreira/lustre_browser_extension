@@ -46,7 +46,7 @@ fn update(model, msg) {
 fn view(model: PopupDefaults) {
   html.main([main_container_classes()], [
     html.div([], [html.text(model.page_name)]),
-    logo.view([]),
+    logo.view([attribute.class("w-12 h-12 mx-auto")]),
     shared_subtitle.view(model.page_name),
     html.button(
       [attribute.class("btn mt-2"), event.on_click(UserClickedOpenOptionPage)],
