@@ -2,27 +2,27 @@ import gleam/int
 import gleam/io
 import gleam/list
 import gleam/string
-import lib/file_utils
-import lib/project_config
+import lib/config
+import lib/file
 import scripts/manifest
 import simplifile
 
 pub fn main() {
   manifest.main()
-  case project_config.is_dev() {
-    True -> stub_index_html(project_config.views)
+  case config.is_dev() {
+    True -> stub_index_html(config.views)
     False -> io.println("Skipping stubbing index.html")
   }
 }
 
 pub fn stub_index_html(views: List(String)) {
-  let port = project_config.get_port() |> int.to_string()
+  let port = config.get_port() |> int.to_string()
 
   list.each(views, fn(view) {
     let extension_dir = "./extension/dist/" <> view <> "/"
     let index_html_file_path = "./src/" <> view <> "/index.html"
 
-    file_utils.ensure_dir(extension_dir)
+    file.ensure_dir(extension_dir)
 
     let assert Ok(file_content) = simplifile.read(index_html_file_path)
 

@@ -1,7 +1,7 @@
 import components/logo
 import components/shared_subtitle
 import gleam/result
-import lib/extension_utils
+import lib/extension
 import lib/message
 import lib/storage
 import lustre
@@ -37,7 +37,7 @@ fn update(model, msg) {
       |> message.new(sender: "popup")
       |> message.post(to: "open_options_page")
 
-      extension_utils.open_options_page()
+      extension.open_options_page()
       model
     }
   }

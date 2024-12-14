@@ -4,14 +4,14 @@ import gleam/json.{
   type Json, array, bool, int, object, preprocessed_array, string,
 }
 import gleam/list
-import lib/file_utils
-import lib/project_config
+import lib/config
+import lib/file
 import simplifile
 
 pub fn main() {
   io.debug("Generating manifest.json")
   let extension_dir = "./extension/"
-  file_utils.ensure_dir(extension_dir)
+  file.ensure_dir(extension_dir)
   let filepath = extension_dir <> "manifest.json"
   let assert Ok(_) =
     get_manifest_json_string()
@@ -27,9 +27,9 @@ pub fn get_manifest_json_string() -> String {
 pub fn get_manifest_json() -> Json {
   let manifest_options = [
     #("manifest_version", int(3)),
-    #("name", string(project_config.name())),
-    #("version", string(project_config.version())),
-    #("description", string(project_config.description())),
+    #("name", string(config.name())),
+    #("version", string(config.version())),
+    #("description", string(config.description())),
     #("action", get_action_object()),
     #("options_ui", get_options_ui()),
     #("background", get_background()),
@@ -41,7 +41,7 @@ pub fn get_manifest_json() -> Json {
     #("content_security_policy", get_security_policy()),
   ]
 
-  let full_browser_options = case project_config.is_firefox() {
+  let full_browser_options = case config.is_firefox() {
     True -> list.append(manifest_options, get_firefox_specific_options())
     False -> list.append(manifest_options, get_chrome_specific_options())
   }
@@ -64,7 +64,7 @@ fn get_options_ui() -> Json {
 }
 
 fn get_background() -> Json {
-  case project_config.is_firefox() {
+  case config.is_firefox() {
     True ->
       object([
         #("scripts", array(["dist/background/index.mjs"], of: string)),
@@ -106,11 +106,11 @@ fn get_web_accessible_resources() -> Json {
 }
 
 fn get_security_policy() -> Json {
-  let extension_pages = case project_config.is_dev() {
+  let extension_pages = case config.is_dev() {
     True ->
       string(
         "script-src 'self' http://localhost:"
-        <> int.to_string(project_config.get_port())
+        <> int.to_string(config.get_port())
         <> "; object-src 'self'",
       )
     False -> string("script-src 'self'; object-src 'self'")

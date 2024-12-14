@@ -1,6 +1,7 @@
 import components/lucide_icons
 import components/shared_subtitle
 import gleam/io
+import lib/message.{type Message}
 import lustre
 import lustre/attribute
 import lustre/element/html
@@ -8,6 +9,15 @@ import lustre/event
 
 pub fn main(element_id: String) {
   let app = lustre.simple(init, update, view)
+
+  message.on("tab-prev", fn(message: Message) {
+    io.debug(
+      "[lustre-browser-extension] Navigate from page \""
+      <> message.content
+      <> "\"",
+    )
+    Nil
+  })
 
   case lustre.start(app, element_id, Nil) {
     Ok(_) -> {
