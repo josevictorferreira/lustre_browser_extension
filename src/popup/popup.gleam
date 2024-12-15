@@ -11,7 +11,7 @@ import lustre/event
 
 pub fn main() {
   let app = lustre.simple(init, update, view)
-  let assert Ok(_) = lustre.start(app, "#lustre_web_extension", Nil)
+  let assert Ok(_) = lustre.start(app, "#app", Nil)
 
   Nil
 }

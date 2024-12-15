@@ -1,5 +1,5 @@
 {
-  "name": "lustre_web_extension",
+  "name": "lustre_browser_extension",
   "private": true,
   "version": "1.0.0",
   "packageManager": "pnpm@9.7.1",

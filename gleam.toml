@@ -1,4 +1,4 @@
-name = "lustre_web_extension"
+name = "lustre_browser_extension"
 version = "1.0.0"
 target = "javascript"
 
