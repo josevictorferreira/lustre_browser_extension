@@ -1,6 +1,8 @@
 import { defineConfig } from 'vite'
 import { sharedConfig } from './vite.config.mjs'
 import { isDev, r, name } from './scripts/utils.js'
+import tailwindcss from 'tailwindcss';
+import autoprefixer from 'autoprefixer';
 
 export default defineConfig({
   ...sharedConfig,
@@ -8,6 +10,14 @@ export default defineConfig({
     '__DEV__': isDev,
     '__NAME__': JSON.stringify(name),
     'process.env.NODE_ENV': JSON.stringify(isDev ? 'development' : 'production'),
+  },
+  css: {
+    postcss: {
+      plugins: [
+        tailwindcss(),
+        autoprefixer(),
+      ]
+    }
   },
   build: {
     watch: isDev

@@ -9,8 +9,6 @@ import ref
 pub fn main() {
   let prev_tab_id = ref.cell(None)
 
-  io.debug("Hello from background.js!")
-
   extension.on_installed(fn() {
     io.debug("Extension installed")
     Nil
