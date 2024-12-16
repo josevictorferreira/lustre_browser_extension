@@ -1,4 +1,5 @@
 import gleam/dynamic.{type DecodeError}
+import gleam/int
 import gleam/io
 import gleam/javascript/promise
 import gleam/option.{None, Some}
@@ -25,11 +26,8 @@ pub fn main() {
       Some(prev_id) -> {
         prev_id
         |> tab.get_by_id()
-        |> promise.map_try(fn(tab: Tab) {
-          tab.title
-          |> io.debug
-          |> Ok
-        })
+        |> promise.map_try(fn(tab: Tab) { tab.title |> io.debug |> Ok })
+        |> promise.rescue(fn(_err) { "Cant get last tab" |> io.debug |> Ok })
       }
       None -> Ok(io.debug("No previous tab")) |> promise.resolve
     }

@@ -1,4 +1,4 @@
-const browser = chrome || browser;
+import browser from 'webextension-polyfill'
 
 export function openOptionsPage() {
   browser.runtime.openOptionsPage()
@@ -24,20 +24,13 @@ export function tabsOnActivated(callback) {
   browser.tabs.onActivated.addListener(callback)
 }
 
-export function getTabById(id) {
-  return new Promise((resolve, reject) => {
-    try {
-      browser.tabs.get(id, (tab) => {
-        if (browser.runtime.lastError) {
-          reject(new Error(browser.runtime.lastError.message));
-        } else {
-          resolve({
-            title: tab.title
-          });
-        }
-      });
-    } catch (error) {
-      reject(error)
-    }
-  })
+export async function getTabById(id) {
+  try {
+    const tab = await browser.tabs.get(id)
+    return {
+      title: tab.title
+    };
+  } catch (error) {
+    throw new Error(error.message)
+  }
 }

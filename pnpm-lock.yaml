@@ -41,6 +41,9 @@ importers:
       vite-plugin-static-copy:
         specifier: ^2.2.0
         version: 2.2.0(vite@5.4.11)
+      webextension-polyfill:
+        specifier: ^0.12.0
+        version: 0.12.0
 
 packages:
 
@@ -1384,6 +1387,9 @@ packages:
         optional: true
       terser:
         optional: true
+
+  webextension-polyfill@0.12.0:
+    resolution: {integrity: sha512-97TBmpoWJEE+3nFBQ4VocyCdLKfw54rFaJ6EVQYLBCXqCIpLSZkwGgASpv4oPt9gdKCJ80RJlcmNzNn008Ag6Q==}
 
   which-boxed-primitive@1.0.2:
     resolution: {integrity: sha512-bwZdv0AKLpplFY2KZRX6TvyuN7ojjr7lwkg6ml0roIy9YeuSr7JS372qlNW18UQYzgYK9ziGcerWqZOmEn9VNg==}
@@ -2741,6 +2747,8 @@ snapshots:
       rollup: 4.27.4
     optionalDependencies:
       fsevents: 2.3.3
+
+  webextension-polyfill@0.12.0: {}
 
   which-boxed-primitive@1.0.2:
     dependencies:
