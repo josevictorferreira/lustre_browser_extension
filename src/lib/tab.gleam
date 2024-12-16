@@ -9,20 +9,9 @@ pub type TabActivation {
   TabActivation(tab_id: Int, window_id: Int)
 }
 
-pub type GetTabError {
-  TabNotFound
-  DecodeError(String)
-}
-
-pub fn get_by_id(id: Int) -> Promise(Result(Tab, GetTabError)) {
+pub fn get_by_id(id: Int) -> Promise(Result(Tab, List(DecodeError))) {
   do_get_by_id(id)
-  |> promise.await(fn(data) {
-    case decode_tab(data) {
-      Ok(tab) -> Ok(tab) |> promise.resolve
-      Error(_) -> Error(DecodeError("Failed to decode tab")) |> promise.resolve
-    }
-  })
-  |> promise.rescue(fn(_error) { Error(TabNotFound) })
+  |> promise.map(decode_tab)
 }
 
 pub fn on_activated(

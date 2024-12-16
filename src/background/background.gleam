@@ -1,9 +1,10 @@
+import gleam/dynamic.{type DecodeError}
 import gleam/io
 import gleam/javascript/promise
 import gleam/option.{None, Some}
 import lib/extension
 import lib/message.{type Message}
-import lib/tab.{type GetTabError, type Tab}
+import lib/tab.{type Tab}
 import ref
 
 pub fn main() {
@@ -24,22 +25,13 @@ pub fn main() {
       Some(prev_id) -> {
         prev_id
         |> tab.get_by_id()
-        |> promise.await(fn(tab: Result(Tab, GetTabError)) {
-          case tab {
-            Ok(tab) -> {
-              tab.title
-              |> io.debug
-              |> promise.resolve
-            }
-            Error(_) -> {
-              io.debug("Failed to get tab")
-              |> promise.resolve
-            }
-          }
+        |> promise.map_try(fn(tab: Tab) {
+          tab.title
+          |> io.debug
+          |> Ok
         })
-        Nil
       }
-      None -> Nil
+      None -> Ok(io.debug("No previous tab")) |> promise.resolve
     }
 
     ref.set(prev_tab_id, fn(_) { current_tab_id })

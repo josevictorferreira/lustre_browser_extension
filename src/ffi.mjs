@@ -30,11 +30,11 @@ export function getTabById(id) {
       browser.tabs.get(id, (tab) => {
         if (browser.runtime.lastError) {
           reject(new Error(browser.runtime.lastError.message));
-          return;
+        } else {
+          resolve({
+            title: tab.title
+          });
         }
-        resolve({
-          title: tab.title
-        });
       });
     } catch (error) {
       reject(error)
