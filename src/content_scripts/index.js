@@ -1,8 +1,8 @@
 import { main } from './content_script.gleam'
 import "../styles/app.css"
+import browser from "webextension-polyfill";
 
 (() => {
-  const browser = chrome || browser;
   console.log(`${__NAME__} content script loaded`);
 
   const container = document.createElement("div");
