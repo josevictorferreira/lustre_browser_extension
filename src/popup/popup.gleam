@@ -1,8 +1,10 @@
 import components/logo
 import components/shared_subtitle
+import gleam/dynamic
+import gleam/option.{Some}
 import gleam/result
 import lib/extension
-import lib/message
+import lib/message.{Background, Popup}
 import lib/storage
 import lustre
 import lustre/attribute
@@ -34,8 +36,9 @@ fn update(model, msg) {
   case msg {
     UserClickedOpenOptionPage -> {
       "Hello from Popup page!"
-      |> message.new(sender: "popup")
-      |> message.post(to: "open_options_page")
+      |> dynamic.from
+      |> message.new(origin: Popup, destiny: Some(Background))
+      |> message.send(message_id: "open_options_page")
 
       extension.open_options_page()
       model

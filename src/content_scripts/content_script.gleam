@@ -1,7 +1,9 @@
 import components/lucide_icons
 import components/shared_subtitle
+import gleam/dynamic.{type Dynamic}
 import gleam/io
-import lib/message.{type Message}
+import gleam/result
+import lib/message
 import lustre
 import lustre/attribute
 import lustre/element/html
@@ -10,24 +12,21 @@ import lustre/event
 pub fn main(element_id: String) {
   let app = lustre.simple(init, update, view)
 
-  message.on("tab-prev", fn(message: Message) {
+  message.listen("tab_prev", fn(message: Dynamic) {
+    let message_content = message |> dynamic.string |> result.unwrap("ERROR")
     io.debug(
       "[lustre-browser-extension] Navigate from page \""
-      <> message.content
+      <> message_content
       <> "\"",
     )
-    Nil
   })
 
   case lustre.start(app, element_id, Nil) {
     Ok(_) -> {
       io.debug("Lustre content script started successfully")
-      Nil
     }
-    Error(e) -> {
-      io.debug("Error starting Lustre content script app:")
-      io.debug(e)
-      Nil
+    Error(_e) -> {
+      io.debug("Error starting Lustre content script app")
     }
   }
 }

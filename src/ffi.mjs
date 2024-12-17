@@ -4,16 +4,20 @@ export function openOptionsPage() {
   browser.runtime.openOptionsPage()
 }
 
-export function postMessage(message, to) {
+export function sendMessage(message, to) {
   browser.runtime.sendMessage({ to, message })
 }
 
-export function onMessage(address, callback) {
+export function listenMessage(messageId, callback) {
   browser.runtime.onMessage.addListener((message) => {
-    if (message.to === address) {
+    if (message.to === messageId) {
       callback(message.message)
     }
   })
+}
+
+export function sendMessageToTab(message, tabId, messageId) {
+  browser.tabs.sendMessage(tabId, { message, messageId, to: messageId })
 }
 
 export function onInstalled(callback) {
