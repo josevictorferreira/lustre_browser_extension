@@ -9,17 +9,26 @@ import lustre/attribute
 import lustre/element/html
 import lustre/event
 
-pub fn main(element_id: String) {
-  let app = lustre.simple(init, update, view)
-
-  message.listen("tab_prev", fn(message: Dynamic) {
-    let message_content = message |> dynamic.string |> result.unwrap("ERROR")
+pub fn handle_messages() {
+  message.listen("tab_prev", fn(message_data: Dynamic) {
+    let message_content =
+      message_data |> dynamic.string |> result.unwrap("ERROR")
     io.debug(
       "[lustre-browser-extension] Navigate from page \""
       <> message_content
       <> "\"",
     )
   })
+
+  message.listen("PING", fn(_message_data) {
+    io.debug("[lustre-browser-extension] PONG")
+
+    True
+  })
+}
+
+pub fn main(element_id: String) {
+  let app = lustre.simple(init, update, view)
 
   case lustre.start(app, element_id, Nil) {
     Ok(_) -> {

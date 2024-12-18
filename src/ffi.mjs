@@ -4,20 +4,25 @@ export function openOptionsPage() {
   browser.runtime.openOptionsPage()
 }
 
-export function sendMessage(message, messageId) {
-  browser.runtime.sendMessage({ messageId, message })
+export function sendMessage(message, action) {
+  browser.runtime.sendMessage({ action, message })
 }
 
-export function listenMessage(messageId, callback) {
-  browser.runtime.onMessage.addListener((message) => {
-    if (message.messageId === messageId) {
-      callback(message.message)
+export async function sendMessageToTab(tabId, message, action) {
+  try {
+    await browser.tabs.sendMessage(tabId, { message, action })
+    return true
+  } catch (error) {
+    return false
+  }
+}
+
+export function listenMessage(action, callback) {
+  browser.runtime.onMessage.addListener(function(message) {
+    if (message.action === action) {
+      return callback(message.message)
     }
   })
-}
-
-export function sendMessageToTab(message, tabId, messageId) {
-  browser.tabs.sendMessage(tabId, { messageId, message })
 }
 
 export function onInstalled(callback) {

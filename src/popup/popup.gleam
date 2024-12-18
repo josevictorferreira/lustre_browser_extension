@@ -37,8 +37,8 @@ fn update(model, msg) {
     UserClickedOpenOptionPage -> {
       "Hello from Popup page!"
       |> dynamic.from
-      |> message.new(origin: Popup, destiny: Some(Background))
-      |> message.send(message_id: "open_options_page")
+      |> message.new(origin: Popup, destination: Some(Background))
+      |> message.send(action: "open_options_page")
 
       extension.open_options_page()
       model

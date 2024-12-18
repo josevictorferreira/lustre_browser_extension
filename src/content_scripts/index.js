@@ -1,9 +1,12 @@
-import { main } from './content_script.gleam'
+import { main, handle_messages } from './content_script.gleam'
 import "../styles/app.css"
 import browser from "webextension-polyfill";
 
+
 (() => {
   console.log(`${__NAME__} content script loaded`);
+
+  handle_messages();
 
   const container = document.createElement("div");
   container.id = `${__NAME__}-container`;

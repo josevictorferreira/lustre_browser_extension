@@ -9,36 +9,47 @@ import lib/tab.{type Tab}
 import ref
 
 pub fn main() {
-  let prev_tab_id = ref.cell(None)
-
   extension.on_installed(fn() { io.debug("Extension installed") })
+
+  handle_tab_activation()
+
+  message.listen("open_options_page", open_options_page_listener)
+}
+
+fn handle_tab_activation() {
+  let prev_tab_id = ref.cell(None)
 
   tab.on_activated(fn(tab_activation) {
     let current_tab_id = case tab_activation {
-      Ok(activation_tab) -> Some(activation_tab.tab_id)
+      Ok(tab) -> Some(tab.tab_id)
       _ -> None
     }
 
-    case ref.get(prev_tab_id) {
+    let prev_id = case ref.get(prev_tab_id) {
+      Some(prev_id) -> Some(prev_id)
+      None -> None
+    }
+
+    case prev_id {
       Some(prev_id) -> {
         prev_id
         |> tab.get_by_id()
-        |> promise.map_try(fn(tab: Tab) {
-          tab.title |> dynamic.from |> send_to_previous_tab(prev_id) |> Ok
+        |> promise.map(fn(tab_result: Result(Tab, tab.TabError)) {
+          case tab_result {
+            Ok(tab) -> {
+              tab.title |> dynamic.from |> send_to_previous_tab(prev_id) |> Ok
+            }
+            Error(_tab_error) -> io.debug("Tab not found") |> Error
+          }
         })
-        |> promise.rescue(fn(_e) { Error(tab.NotFound) })
+        |> promise.rescue(fn(_) { Error(io.debug("Cant get tab")) })
       }
-      None -> Error(tab.NotFound) |> promise.resolve
+      None -> {
+        Error(io.debug("No previous tab id")) |> promise.resolve
+      }
     }
 
     ref.set(prev_tab_id, fn(_) { current_tab_id })
-  })
-
-  message.listen("open_options_page", fn(content: Dynamic) {
-    io.debug(
-      "Received a message: "
-      <> dynamic.string(content) |> result.unwrap("Empty"),
-    )
   })
 }
 
@@ -46,7 +57,12 @@ fn send_to_previous_tab(content: Dynamic, tab_id: Int) {
   content
   |> message.new(
     origin: message.Background,
-    destiny: Some(message.ContentScript(tab_id)),
+    destination: Some(message.ContentScript(tab_id)),
   )
   |> message.send("tab_prev")
+}
+
+fn open_options_page_listener(message_data: Dynamic) {
+  let message_string = dynamic.string(message_data) |> result.unwrap("Empty")
+  io.debug("[open_options_page] Received a message: " <> message_string)
 }
