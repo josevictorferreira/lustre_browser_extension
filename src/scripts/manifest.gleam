@@ -84,7 +84,10 @@ fn get_icons() -> Json {
 }
 
 fn get_permissions() -> Json {
-  array(["storage", "tabs", "activeTab", "sidePanel"], of: string)
+  case config.is_firefox() {
+    True -> array(["storage", "tabs", "activeTab"], of: string)
+    False -> array(["storage", "tabs", "activeTab", "sidePanel"], of: string)
+  }
 }
 
 fn get_content_scripts() -> Json {
@@ -108,11 +111,15 @@ fn get_web_accessible_resources() -> Json {
 fn get_security_policy() -> Json {
   let extension_pages = case config.is_dev() {
     True ->
-      string(
-        "script-src 'self' http://localhost:"
-        <> int.to_string(config.get_port())
-        <> "; object-src 'self'",
-      )
+      case config.is_firefox() {
+        True -> string("script-src 'self' 'unsafe eval'; object-src 'self'")
+        False ->
+          string(
+            "script-src 'self' http://localhost:"
+            <> int.to_string(config.get_port())
+            <> "; object-src 'self'",
+          )
+      }
     False -> string("script-src 'self'; object-src 'self'")
   }
 
