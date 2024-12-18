@@ -79,7 +79,7 @@ pnpm build-firefox
 │   ├── lib/                   # Shared gleam libraries
 │   ├── scripts/               # Useful gleam scripts
 │   └── styles/                # Main css files
-├── assets/                    # Static assets to be used by the extension manifest.json configuration
+├── manifest/                  # The output folder wher your extension will be build
 ├── vite.config.background.mjs # Vite configuration with defaults for building the background service
 ├── vite.config.content.mjs    # Vite configuration with defaults for building content scripts
 └── vite.config.mjs            # Vite configuration
