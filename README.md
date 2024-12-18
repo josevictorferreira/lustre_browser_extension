@@ -28,7 +28,7 @@ This project is based on [vitesse-webext](https://github.com/antfu/vitesse-webex
 
 1. Clone this repository:
 ```bash
-git clone https://github.com/yourusername/lustre-browser-extension
+git clone https://github.com/josevictorferreira/lustre_browser_extension.git
 cd lustre-browser-extension
 ```
 
