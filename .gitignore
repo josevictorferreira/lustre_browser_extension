@@ -36,6 +36,7 @@ build/*
 *.log
 *.pem
 *.xpi
+*.key
 *.zip
 .vite-ssg-dist
 .vite-ssg-temp
