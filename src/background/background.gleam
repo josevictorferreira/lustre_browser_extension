@@ -36,8 +36,11 @@ fn handle_tab_activation() {
         |> tab.get_by_id()
         |> promise.map(fn(tab_result: Result(Tab, tab.TabError)) {
           case tab_result {
-            Ok(tab) -> {
-              tab.title |> dynamic.from |> send_to_previous_tab(prev_id) |> Ok
+            Ok(previous_tab) -> {
+              previous_tab.title
+              |> dynamic.from
+              |> send_to_previous_tab(current_tab_id |> option.unwrap(0))
+              |> Ok
             }
             Error(_tab_error) -> io.debug("Tab not found") |> Error
           }
